@@ -31,7 +31,7 @@ const CourseItem = ({ image, title, price, viewDetails, onAddToCart }) => {
                         <MaterialIcons name="remove-red-eye" size={35} color={globalStyles.green} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={onAddToCart}>
-                        <MaterialIcons name="shopping-basket" size={35} color={globalStyles.green} />
+                        <MaterialIcons name="add-shopping-cart" size={35} color={globalStyles.green} />
                     </TouchableOpacity>
                 </View>
             </View>

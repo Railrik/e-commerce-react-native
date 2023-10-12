@@ -1,7 +1,7 @@
 const COURSES = [
   {
     id: '1',
-    title: 'Fomation JavaScript Moderne',
+    title: 'Formation JavaScript Moderne',
     description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae, consequatur dolor sequi provident possimus sed ad qui ipsum similique odio iste molestias praesentium nemo ut facere, consectetur error in voluptate!',
     image: 'https://cdn.pixabay.com/photo/2019/07/16/18/18/frontend-4342425_640.png',
     price: 99.99,
@@ -19,7 +19,7 @@ const COURSES = [
   },
   {
     id: '3',
-    title: 'Wordpress pour débutants',
+    title: 'Wordpress pour les débutants',
     description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae, consequatur dolor sequi provident possimus sed ad qui ipsum similique odio iste molestias praesentium nemo ut facere, consectetur error in voluptate!',
     image: 'https://cdn.pixabay.com/photo/2016/11/13/04/52/statistic-1820320_640.png',
     price: 29.49,
@@ -46,7 +46,7 @@ const COURSES = [
   },
   {
     id: '6',
-    title: 'apprendre CSS3 ',
+    title: 'Apprendre CSS3',
     description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae, consequatur dolor sequi provident possimus sed ad qui ipsum similique odio iste molestias praesentium nemo ut facere, consectetur error in voluptate!',
     image: 'https://cdn.pixabay.com/photo/2018/04/03/23/29/wordpress-3288414_640.png',
     price: 9.99,
