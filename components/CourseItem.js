@@ -38,7 +38,7 @@ const CourseItem = ({ image, title, price, viewDetails, onAddToCart }) => {
         </TouchableHighlight>
     )
 }
-export default CourseItem
+export default CourseItem;
 
 const styles = StyleSheet.create({
     coursesContainer: {

@@ -1,9 +1,9 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList } from 'react-native'
 import { useSelector } from 'react-redux'
 import CourseItem from '../components/CourseItem';
 import EmptyItem from '../components/EmptyItem';
 
-const Landing = () => {
+const Landing = ({ navigation }) => {
 
     const existingCourses = useSelector(state => state.courses.existingCourses);
 
@@ -16,8 +16,10 @@ const Landing = () => {
                         image={item.image}
                         title={item.title}
                         price={item.price}
-                        viewDetails={() => alert('details')}
-                        onAddToCart={() => alert('panier')}
+                        viewDetails={() => navigation.navigate('Details', {
+                            courseId: item.id
+                        })}
+                        onAddToCart={() => navigation.navigate('Cart')}
                     >
                     </CourseItem>
                 )}
@@ -27,6 +29,4 @@ const Landing = () => {
     return <EmptyItem text="Pas de cours à afficher" />
 }
 
-export default Landing
-
-const styles = StyleSheet.create({})
+export default Landing;

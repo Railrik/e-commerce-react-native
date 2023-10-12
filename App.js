@@ -1,16 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
+import 'react-native-gesture-handler';
+
 import { Provider } from 'react-redux'
 import store from './redux/store'
-import Landing from './screens/Landing'
+import AppNav from './routes/AppNav';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Landing />
+      <AppNav />
     </Provider>
   )
 }
 
 export default App
 
-const styles = StyleSheet.create({})
