@@ -16,6 +16,8 @@ const Landing = () => {
                         image={item.image}
                         title={item.title}
                         price={item.price}
+                        viewDetails={() => alert('details')}
+                        onAddToCart={() => alert('panier')}
                     >
                     </CourseItem>
                 )}
@@ -23,7 +25,6 @@ const Landing = () => {
         )
     }
     return <EmptyItem text="Pas de cours à afficher" />
-
 }
 
 export default Landing
