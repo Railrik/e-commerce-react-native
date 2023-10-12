@@ -24,7 +24,7 @@ const CourseItem = ({ image, title, price, viewDetails, onAddToCart }) => {
                 </View>
                 <View style={styles.courseContainerDetails}>
                     <Text style={styles.courseTitle}>{title}</Text>
-                    <Text style={styles.coursePrice}>{price.toFixed(2)}</Text>
+                    <Text style={styles.coursePrice}>{price.toFixed(2)} €</Text>
                 </View>
                 <View style={styles.iconsContainer}>
                     <TouchableOpacity onPress={viewDetails}>

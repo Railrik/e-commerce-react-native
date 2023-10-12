@@ -1,10 +1,15 @@
 import { FlatList } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import CourseItem from '../components/CourseItem';
 import EmptyItem from '../components/EmptyItem';
+import { addToCart } from '../redux/actions/actionAddToCart';
 
 const Landing = ({ navigation }) => {
-
+    const dispatch = useDispatch();
+    const handleAddToCart = (course) => {
+        dispatch(addToCart(course));
+        alert("Article ajouté au panier")
+    }
     const existingCourses = useSelector(state => state.courses.existingCourses);
 
     if (existingCourses.length) {
@@ -20,7 +25,7 @@ const Landing = ({ navigation }) => {
                             courseId: item.id,
                             title: item.title
                         })}
-                        onAddToCart={() => alert("Formation ajoutée au panier")}
+                        onAddToCart={() => handleAddToCart(item)}
                     >
                     </CourseItem>
                 )}
