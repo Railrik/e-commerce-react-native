@@ -1,5 +1,3 @@
-// Images Pixabay: https://pixabay.com/fr/users/jmexclusives-10518280/
-
 const COURSES = [
   {
     id: '1',
