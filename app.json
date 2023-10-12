@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "e-commerce-react-native",
-    "slug": "e-commerce-react-native",
+    "slug": "e-commerce",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.railrik.ecommerce"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.railrik.ecommerce"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "04480cac-848b-4ada-a901-d58a65bc7dfd"
+      }
+    },
+    "owner": "railrik"
   }
 }
