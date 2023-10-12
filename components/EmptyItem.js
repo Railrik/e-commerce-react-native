@@ -14,7 +14,9 @@ export default EmptyItem
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        alignItems: "center"
+        alignItems: "center",
+        flex: 1,
+        justifyContent: "center"
     },
     text: {
         color: globalStyles.green
