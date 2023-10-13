@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { CoursesNavigator } from './CoursesStackNav'
+import { DrawerNavigator } from './DrawerNav'
 
 const AppNav = () => {
     return (
         <NavigationContainer>
-            <CoursesNavigator />
+            <DrawerNavigator />
         </NavigationContainer>
     )
 }
