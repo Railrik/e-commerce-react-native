@@ -1,5 +1,5 @@
 import COURSES from '../../data/testData';
-import { ADD_TO_CART } from "../constants";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../constants";
 
 const initialState = {
     existingCourses: COURSES
@@ -23,7 +23,19 @@ const reducerCourses = (state = initialState, action) => {
                 };
             }
 
-            return state;
+        case REMOVE_FROM_CART:
+            const indexCourseToDeleteFromCart = state.existingCourses.findIndex(course => course.id === action.courseId);
+            if (indexCourseToDeleteFromCart !== -1) {
+                const updatedExistingCourses = [
+                    ...state.existingCourses.slice(0, indexCourseToDeleteFromCart),
+                    { ...state.existingCourses[indexCourseToDeleteFromCart], selected: false },
+                    ...state.existingCourses.slice(indexCourseToDeleteFromCart + 1)
+                ];
+                return {
+                    ...state,
+                    existingCourses: updatedExistingCourses
+                };
+            }
 
         default:
             return state;
