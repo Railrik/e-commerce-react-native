@@ -11,11 +11,12 @@ const Landing = ({ navigation }) => {
         alert("Article ajouté au panier")
     }
     const existingCourses = useSelector(state => state.courses.existingCourses);
+    const coursesToDisplay = existingCourses.filter(course => course.selected === false);
 
-    if (existingCourses.length) {
+    if (coursesToDisplay.length) {
         return (
             <FlatList
-                data={existingCourses}
+                data={coursesToDisplay}
                 renderItem={({ item }) => (
                     <CourseItem
                         image={item.image}

@@ -28,7 +28,7 @@ export const CoursesNavigator = () => {
             )
             }
         >
-            <CoursesStackNavigator.Screen name="Landing" component={Landing} />
+            <CoursesStackNavigator.Screen name="Accueil" component={Landing} />
             <CoursesStackNavigator.Screen name="Details" component={CourseDetails}
                 options={({ route }) => (
                     {

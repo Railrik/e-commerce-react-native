@@ -1,5 +1,5 @@
 import CartCourse from "../../data/CartCourseModel"
-import { ADD_TO_CART } from "../constants";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../constants";
 
 const initialState = {
     cartCourses: [],
@@ -22,6 +22,21 @@ const reducerCart = (state = initialState, action) => {
                 ...state,
                 cartCourses: state.cartCourses.concat(serializedCourse),
                 total: state.total + price
+            }
+
+        case REMOVE_FROM_CART:
+            const courseId = action.courseId;
+            const indexResult = state.cartCourses.findIndex(course => JSON.parse(course).id === courseId);
+            if (indexResult !== -1) {
+                const coursePrice = JSON.parse(state.cartCourses[indexResult]).price;
+                const newCartCoursesArray = [...state.cartCourses];
+                newCartCoursesArray.splice(indexResult, 1);
+
+                return {
+                    ...state,
+                    cartCourses: newCartCoursesArray,
+                    total: state.total - coursePrice
+                };
             }
         default:
             return state;
