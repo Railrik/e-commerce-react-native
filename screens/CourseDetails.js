@@ -29,10 +29,6 @@ const CourseDetails = ({ navigation, route }) => {
                 />
                 <View style={styles.courseDetails}>
                     <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
-                    <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
-                    <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
-                    <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
-                    <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
                 </View>
             </ScrollView>
             <View style={styles.footerContainer}>
