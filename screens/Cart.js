@@ -5,6 +5,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import CoursesInCart from '../components/CoursesInCart';
 import globalStyles from '../styles/globalStyles';
 import { removeFromCart } from '../redux/actions/actionRemoveFromCart';
+import { addPayment } from '../redux/actions/actionPayment';
 
 const Cart = () => {
 
@@ -13,6 +14,10 @@ const Cart = () => {
     const parsedCartCourses = cartCourses.map(course => JSON.parse(course));
     const total = useSelector(state => state.cart.total);
 
+    const handlerPayment = (cartCourses, total) => {
+        dispatch(addPayment(cartCourses, total));
+        alert("Paiement effectué")
+    }
 
     if (parsedCartCourses.length) {
         return (
@@ -33,7 +38,7 @@ const Cart = () => {
                         Total : <Text style={styles.totalPrice}>{total.toFixed(2)} €</Text>
                     </Text>
                     <TouchableOpacity
-                        onPress={() => alert('passer au paiement')}
+                        onPress={() => handlerPayment(cartCourses, total)}
                     >
                         <View style={styles.btnAddPayment}>
                             <Text style={styles.btnAddPaymentText}>
