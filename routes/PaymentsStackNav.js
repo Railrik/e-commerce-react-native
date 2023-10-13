@@ -1,15 +1,14 @@
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Landing from '../screens/Landing';
-import CourseDetails from '../screens/CourseDetails';
-import Cart from '../screens/Cart';
-import globalStyles from '../styles/globalStyles';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderIcon from '../components/CustomHeaderIcon';
+import PaymentsHistory from '../screens/PaymentsHistory';
+import globalStyles from '../styles/globalStyles';
 
-const CoursesStackNavigator = createStackNavigator();
-export const CoursesNavigator = () => {
+const PaymentsStackNavigator = createStackNavigator();
+export const PaymentsNavigator = () => {
     return (
-        <CoursesStackNavigator.Navigator
+        <PaymentsStackNavigator.Navigator
             screenOptions={({ navigation }) => (
                 {
                     headerStyle: { backgroundColor: globalStyles.green },
@@ -35,16 +34,9 @@ export const CoursesNavigator = () => {
                         </HeaderButtons>
                     ),
                 }
-            )}>
-            <CoursesStackNavigator.Screen name="Landing" options={{ title: "Catalogue" }} component={Landing} />
-            <CoursesStackNavigator.Screen name="Details" component={CourseDetails}
-                options={({ route }) => (
-                    {
-                        title: route.params.title
-                    }
-                )} />
-            <CoursesStackNavigator.Screen name="Cart" component={Cart} />
-        </CoursesStackNavigator.Navigator>
+            )} >
+            <PaymentsStackNavigator.Screen name="PaymentsHistory" component={PaymentsHistory} options={{ title: "Mes achats" }} />
+        </PaymentsStackNavigator.Navigator>
     );
 }
 
