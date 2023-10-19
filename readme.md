@@ -1,7 +1,10 @@
 ## Projet E-commerce React Native
 
 Ce projet est une `Démonstration` d'application mobile E-commerce développée en utilisant React Native. Elle permet aux utilisateurs de parcourir des cours, d'ajouter des cours au panier, de passer des commandes et de gérer leur profil. Les données sont en temps réel, ce qui signifie qu'aucun rafraîchissement n'est nécessaire pour voir les mises à jour, grâce à l'utilisation d' **Apollo GraphQL** et **Prisma**
-![Demo Vidéo](https://ligny.pro/assets/ecommerce-rn-1.gif)
+
+![Demo Gif](https://ligny.pro/assets/ecommerce-rn-1.gif)
+
+[Demo Gif](https://ligny.pro/assets/ecommerce-rn-1.gif)
 
 ### Prérequis
 
