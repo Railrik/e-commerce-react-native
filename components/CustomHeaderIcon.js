@@ -1,5 +1,3 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 import { HeaderButton } from 'react-navigation-header-buttons'
 import { MaterialIcons } from '@expo/vector-icons';
 import globalStyles from '../styles/globalStyles';

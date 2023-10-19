@@ -7,7 +7,9 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderIcon from '../components/CustomHeaderIcon';
 
 const CoursesStackNavigator = createStackNavigator();
-export const CoursesNavigator = () => {
+export const CoursesNavigator = ({ route }) => {
+    const { userId } = route.params
+
     return (
         <CoursesStackNavigator.Navigator
             screenOptions={({ navigation }) => (
@@ -36,8 +38,24 @@ export const CoursesNavigator = () => {
                     ),
                 }
             )}>
-            <CoursesStackNavigator.Screen name="Landing" options={{ title: "Catalogue" }} component={Landing} />
-            <CoursesStackNavigator.Screen name="Details" component={CourseDetails}
+            <CoursesStackNavigator.Screen
+                name="Landing"
+                initialParams={
+                    {
+                        userId: userId
+                    }
+                }
+                options={{ title: "Catalogue" }}
+                component={Landing}
+            />
+            <CoursesStackNavigator.Screen
+                name="Details"
+                initialParams={
+                    {
+                        userId: userId
+                    }
+                }
+                component={CourseDetails}
                 options={({ route }) => (
                     {
                         title: route.params.title

@@ -9,8 +9,7 @@ import {
 import globalStyles from '../styles/globalStyles'
 import { MaterialIcons } from '@expo/vector-icons';
 
-
-const CourseItem = ({ image, title, price, viewDetails, onAddToCart }) => {
+const CourseItem = ({ edit, courseId, image, title, price, viewDetails, instructorName, onAddToCart, userId, instructorId }) => {
     return (
         <TouchableHighlight
             underlayColor={globalStyles.green}
@@ -24,15 +23,26 @@ const CourseItem = ({ image, title, price, viewDetails, onAddToCart }) => {
                 </View>
                 <View style={styles.courseContainerDetails}>
                     <Text style={styles.courseTitle}>{title}</Text>
+                    <Text style={styles.courseInsctructoName}>Proposé par {instructorId === userId ? 'vous' : instructorName}</Text>
+
                     <Text style={styles.coursePrice}>{price.toFixed(2)} €</Text>
                 </View>
                 <View style={styles.iconsContainer}>
                     <TouchableOpacity onPress={viewDetails}>
                         <MaterialIcons name="remove-red-eye" size={35} color={globalStyles.green} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={onAddToCart}>
-                        <MaterialIcons name="add-shopping-cart" size={35} color={globalStyles.green} />
-                    </TouchableOpacity>
+
+                    {instructorId !== userId ? (
+                        <TouchableOpacity onPress={onAddToCart}>
+                            <MaterialIcons name="add-shopping-cart" size={35} color={globalStyles.green} />
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity
+                            onPress={() => edit(courseId)}
+                        >
+                            <MaterialIcons name="edit" size={35} color={globalStyles.green} />
+                        </TouchableOpacity>
+                    )}
                 </View>
             </View>
         </TouchableHighlight>
@@ -71,6 +81,10 @@ const styles = StyleSheet.create({
         color: globalStyles.darkGrey,
         fontWeight: "bold",
         textTransform: "uppercase"
+    },
+    courseInsctructoName: {
+        color: globalStyles.darkGrey,
+        marginVertical: 5
     },
     coursePrice: {
         color: globalStyles.darkGrey,

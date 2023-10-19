@@ -6,7 +6,9 @@ import Cart from '../screens/Cart';
 import globalStyles from '../styles/globalStyles';
 
 const CartStackNavigator = createStackNavigator();
-export const CartNavigator = () => {
+export const CartNavigator = ({ route }) => {
+    const { userId } = route.params
+
     return (
         <CartStackNavigator.Navigator
             screenOptions={({ navigation }) => (
@@ -36,7 +38,13 @@ export const CartNavigator = () => {
                 }
             )}
         >
-            <CartStackNavigator.Screen name="Cart" component={Cart} options={{ title: "Panier" }} />
+            <CartStackNavigator.Screen name="Cart"
+                component={Cart}
+                initialParams={{ userId: userId }}
+                options={
+                    { title: "Panier" }
+                }
+            />
         </CartStackNavigator.Navigator>
     );
 }
