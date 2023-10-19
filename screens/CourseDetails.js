@@ -1,65 +1,141 @@
-import { Image, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
-import globalStyles from '../styles/globalStyles';
+import {
+    Image,
+    StyleSheet,
+    View,
+    Text,
+    TouchableOpacity,
+    ScrollView
+} from 'react-native';
+import { useQuery, useMutation, gql } from '@apollo/client';
+import EmptyItem from '../components/EmptyItem';
 import { MaterialIcons } from '@expo/vector-icons';
-import { addToCart } from '../redux/actions/actionAddToCart';
+import globalStyles from '../styles/globalStyles';
+
+const GET_COURSE = gql`
+ query GetCourse($courseId: ID!) {
+    course(id: $courseId) {
+      id
+      title
+      description
+      image
+      price
+      selected
+    }
+  }
+`;
+
+const ADD_TO_CART = gql`
+  mutation AddToCart($input: AddToCartInput!) {
+    addToCart(input: $input) {
+      id
+      userId
+      cartItems {
+        courseId
+        quantity
+        coursePrice
+      }
+    }
+  }
+`;
 
 const CourseDetails = ({ navigation, route }) => {
 
+    const [addToCart] = useMutation(ADD_TO_CART);
     const courseId = route.params.courseId;
+    const instructorId = route.params.instructorId;
+    const userId = route.params.userId;
+    const { loading, error, data } = useQuery(GET_COURSE, {
+        variables: { courseId },
+        pollInterval: 500,
+    });
 
-    const dispatch = useDispatch();
+    if (loading) {
+        return <View><EmptyItem text="Chargement..." /></View>
+    } else if (error) {
+        return <View><EmptyItem text="Erreur" /></View>
+    } else {
+        const selectedCourse = data.course;
+        const handleAddToCart = (course) => {
+            const input = {
+                userId: parseInt(route.params.userId, 10),
+                cartItems: [
+                    {
+                        courseId: parseInt(course.id, 10),
+                        quantity: 1,
+                        coursePrice: parseFloat(course.price),
+                    },
+                ],
+            };
 
-    const selectedCourse = useSelector(state => state.courses.existingCourses.find(course => course.id === courseId));
+            addToCart({
+                variables: { input },
+            })
+                .then((response) => {
+                    alert('Article ajouté au panier');
+                })
+                .catch((error) => {
+                    alert('Erreur lors de l\'ajout au panier : ' + error.message);
+                });
+            navigation.goBack();
+        }
 
-    const handleAddToCart = () => {
-        dispatch(addToCart(selectedCourse));
-        navigation.goBack();
-        alert("Article ajouté au panier");
-
-    }
-
-    return (
-        <View>
-            <ScrollView style={styles.scroll}>
-                <Image
-                    source={{ uri: selectedCourse.image }}
-                    style={styles.courseImage}
-                />
-                <View style={styles.courseDetails}>
-                    <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
-                </View>
-            </ScrollView>
-            <View style={styles.footerContainer}>
-                <View style={styles.footerTop}>
-                    <View style={styles.coursePriceWrapper}>
-                        <Text style={styles.coursePrice}>{selectedCourse.price.toFixed(2)} €</Text>
+        return (
+            <View>
+                <ScrollView style={styles.scroll}>
+                    <Image
+                        source={{ uri: selectedCourse.image }}
+                        style={styles.courseImage}
+                    />
+                    <View style={styles.courseDetails}>
+                        <Text numberOfLines={1} style={styles.courseTitle}>{selectedCourse.title}</Text>
+                        <Text style={styles.courseDescription}>{selectedCourse.description}</Text>
+                    </View>
+                </ScrollView>
+                <View style={styles.footerContainer}>
+                    <View style={styles.footerTop}>
+                        <View style={styles.coursePriceWrapper}>
+                            <Text style={styles.coursePrice}>{selectedCourse.price.toFixed(2)} €</Text>
+                        </View>
+                    </View>
+                    <View style={styles.footerBottom}>
+                        <MaterialIcons
+                            name="arrow-back-ios"
+                            size={24}
+                            color={globalStyles.white}
+                            onPress={() => navigation.goBack()}
+                        />
+                        {userId !== instructorId ? (
+                            <TouchableOpacity
+                                onPress={() => handleAddToCart(selectedCourse)}
+                            >
+                                <View style={styles.btnAddToCart}>
+                                    <MaterialIcons
+                                        name="add-shopping-cart"
+                                        size={32}
+                                        color={globalStyles.green}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('UserNavigator', {
+                                    courseId: courseId
+                                })}
+                            >
+                                <View style={styles.btnAddToCart}>
+                                    <MaterialIcons
+                                        name="edit"
+                                        size={32}
+                                        color={globalStyles.green}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 </View>
-                <View style={styles.footerBottom}>
-                    <MaterialIcons
-                        name="arrow-back-ios"
-                        size={24}
-                        color={globalStyles.white}
-                        onPress={() => navigation.goBack()}
-                    />
-
-                    <TouchableOpacity
-                        onPress={handleAddToCart}
-                    >
-                        <View style={styles.btnAddToCart}>
-                            <MaterialIcons
-                                name="add-shopping-cart"
-                                size={32}
-                                color={globalStyles.green}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                </View>
             </View>
-        </View>
-    )
+        )
+    }
 }
 
 export default CourseDetails;
@@ -76,6 +152,12 @@ const styles = StyleSheet.create({
     courseDetails: {
         padding: 20,
         alignItems: "center"
+    },
+    courseTitle: {
+        marginVertical: 10,
+        fontWeight: "bold",
+        color: globalStyles.green,
+        fontSize: 20
     },
     courseDescription: {
         color: globalStyles.darkGrey,

@@ -6,7 +6,8 @@ import PaymentsHistory from '../screens/PaymentsHistory';
 import globalStyles from '../styles/globalStyles';
 
 const PaymentsStackNavigator = createStackNavigator();
-export const PaymentsNavigator = () => {
+export const PaymentsNavigator = ({ route }) => {
+    const { userId } = route.params
     return (
         <PaymentsStackNavigator.Navigator
             screenOptions={({ navigation }) => (
@@ -35,7 +36,11 @@ export const PaymentsNavigator = () => {
                     ),
                 }
             )} >
-            <PaymentsStackNavigator.Screen name="PaymentsHistory" component={PaymentsHistory} options={{ title: "Mes achats" }} />
+            <PaymentsStackNavigator.Screen
+                name="PaymentsHistory"
+                component={PaymentsHistory}
+                initialParams={{ userId: userId }}
+                options={{ title: "Mes achats" }} />
         </PaymentsStackNavigator.Navigator>
     );
 }

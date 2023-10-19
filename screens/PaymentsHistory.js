@@ -1,30 +1,52 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import { useSelector } from 'react-redux'
+import { FlatList, View } from 'react-native'
+import { useQuery, gql } from '@apollo/client';
 import EmptyItem from '../components/EmptyItem';
 import PaidItems from '../components/PaidItems';
 
-const PaymentsHistory = () => {
-
-    const payments = useSelector(state => state.payments.payments);
-
-    const parsedPayments = payments.map(state => JSON.parse(state));
-    if (payments.length > 0) {
-        return (
-            <FlatList
-                data={parsedPayments}
-                renderItem={({ item }) => (
-                    <PaidItems
-                        totalPrice={item.total}
-                        date={item.date}
-                        courseDetails={item}
-                    ></PaidItems>
-                )}
-            />
-        )
+const GET_PURCHASED_COURSES = gql`
+query GetPurchasedCourses($userId: ID!) {
+  user(id: $userId) {
+    purchasedCourses {
+      purchaseDate
+      price
+      courses {
+        id
+        title
+      }
     }
-    return <EmptyItem text="Pas d'achats'" />
+  }
+}
+`;
+
+const PaymentsHistory = ({ route }) => {
+    const { userId } = route.params;
+    const { loading, error, data: datas } = useQuery(GET_PURCHASED_COURSES, {
+        variables: { userId },
+        pollInterval: 500,
+    });
+    if (loading) {
+        return <View><EmptyItem text="Chargement..." /></View>
+    } else if (error) {
+        return <View><EmptyItem text="Erreur" /></View>
+    } else {
+        const purchasedCourses = datas.user.purchasedCourses;
+        if (purchasedCourses.length > 0) {
+            return (
+                <FlatList
+                    data={purchasedCourses}
+                    renderItem={({ item }) => (
+                        <PaidItems
+                            // totalPrice={item.total}
+                            // date={item.date}
+                            courseDetails={item}
+                        ></PaidItems>
+                    )}
+                />
+            )
+        }
+        return <EmptyItem text="Pas d'achats" />
+    }
 }
 
-export default PaymentsHistory
+export default PaymentsHistory;
 
-const styles = StyleSheet.create({})

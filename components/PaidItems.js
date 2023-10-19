@@ -1,55 +1,54 @@
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import CoursesOverview from './CoursesOverview';
 import { AntDesign } from '@expo/vector-icons';
 import { useState } from 'react';
 import globalStyles from '../styles/globalStyles';
 
-
-const PaidItems = ({ totalPrice, date, courseDetails }) => {
+const PaidItems = ({ courseDetails }) => {
     const [isShowing, setIsShowing] = useState(false);
 
     const handleShow = () => {
-        setIsShowing(prevState => !prevState)
+        setIsShowing(prevState => !prevState);
     }
-
-    const courses = courseDetails.courses.map(course => JSON.parse(course));
+    const totalPrice = courseDetails.price.toFixed(2); // Prix total
+    const date = courseDetails.purchaseDate
 
     return (
         <ScrollView style={styles.paidCourseContainer}>
             <View style={styles.paidCourse}>
                 <Text style={styles.totalPaid}>
-                    {totalPrice.toFixed(2)} €
+                    {totalPrice} €
                 </Text>
                 <Text style={styles.date}>
                     {date}
                 </Text>
-                <TouchableOpacity style={styles.iconBtn}>
+                <TouchableOpacity style={styles.iconBtn} onPress={handleShow}>
                     <AntDesign
                         name={isShowing ? "minuscircleo" : "pluscircleo"}
                         size={24}
                         color={isShowing ? globalStyles.orange : globalStyles.green}
-                        onPress={handleShow}
                     />
                 </TouchableOpacity>
             </View>
-            {
-                isShowing && (
-                    <View style={styles.detailPaidCourse}>
-                        {
-                            courses.map(course => (
-                                <CoursesOverview
-                                    key={course.id}
-                                    title={course.title}
-                                    price={course.price}
-                                />
-                            ))
-                        }
-                    </View>
-                )
-            }
-            {/* <Text>{courseDetails}</Text> */}
+            {isShowing && (
+                <View style={styles.detailPaidCourse}>
+                    {courseDetails.courses.map(course => (
+                        <CoursesOverview
+                            key={course.id}
+                            title={course.title}
+                            price={courseDetails.price.toFixed(2)}
+                        />
+                    ))}
+                </View>
+            )}
         </ScrollView>
-    )
+    );
 }
 
 export default PaidItems;
