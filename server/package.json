@@ -1,0 +1,27 @@
+{
+  "name": "courses-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./graphql/index.js",
+  "scripts": {
+    "start": "nodemon start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "prisma": "^5.4.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.9.4",
+    "@prisma/client": "^5.4.2",
+    "graphql": "^16.8.1",
+    "moment": "^2.29.4",
+    "nodemon": "^3.0.1"
+  }
+}
